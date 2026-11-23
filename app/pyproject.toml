@@ -1,0 +1,12 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = "API for tool calling"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.165.0",
+    "google-genai>=3.6.1",
+    "python-dotenv>=1.2.4",
+    "uvicorn>=0.54.0",
+]
