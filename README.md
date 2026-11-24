@@ -66,7 +66,7 @@ Crie um arquivo `.env` com uma chave do [Google AI Studio](https://aistudio.goog
 GEMINI_API_KEY=sua-chave
 ```
 
-3. Build e comece ambos os serviços:
+2. Build e comece ambos os serviços:
 
 ```bash
 docker compose up --build
@@ -133,6 +133,7 @@ npm run dev
 | `503 UNAVAILABLE` (alta demanda) | Sobrecarga temporária no lado do Google | Retry com backoff exponencial (1s, 2s, 4s, 8s) e número limitado de tentativas no nível do SDK |
 | Respostas muito lentas | Modelo pesado somado a retries empilhados (retries do SDK em cima dos retries customizados) | Troca para um modelo `flash-lite`, definição de timeout na requisição e limite de tentativas do SDK |
 | Respostas fora do escopo (por exemplo, "Qual a capital da França?" retornava "Paris") | O modelo não tinha nenhuma instrução para recusar | System prompt com regras explícitas de escopo e comportamento fixo de recusa, além de `temperature=0` |
+| Modelo estava muito limitado | O modelo apenas conseguia falar os valores que estão nos resources, seria a mesma coisa que só lançar um JSON para o usuário | Agora o modelo pode responder perguntas a respeito das GPUs da infraestrutura. Exemplo: "Qual GPU seria melhor para treinar um modelo com 50b de parâmetros?" Ele irá responder de acordo usando os dados que foram passados pelas tools. __Sem sair do escopo__ |
 
 ## Limitações
 
@@ -152,4 +153,4 @@ npm run dev
 - Backend de inventário real e ferramentas de escrita (reservar/liberar)
 - Testes para chamadas de ferramenta e recusas fora do escopo
 - Expor as ferramentas como um servidor MCP para que outros clientes possam usá-las
-- Usar ferramentas como o opencode com modelos já treinados, com um design robusto para aplicações desktop e terminal e suporte a MCP desde o início
+- Usar ferramentas como o opencode com modelos já treinados, com um design robusto para aplicações desktop e terminal, além de suporte a MCP desde o início
