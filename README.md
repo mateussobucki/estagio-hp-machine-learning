@@ -129,7 +129,7 @@ npm run dev
 
 | Problema | Causa | Solução |
 |---|---|---|
-| Tool calling pouco confiável | A primeira versão usava um modelo local pequeno (`llama3.2:3b` via Ollama), que frequentemente ignorava as ferramentas ou gerava chamadas malformadas. Usá-lo seria possível mas deixaria o código muito mais complicado | Migração para a API do Gemini, que lida de forma confiável com function calling |
+| Tool calling pouco confiável | A primeira versão usava um modelo local pequeno (`llama3.2:3b` via Ollama), que frequentemente ignorava as ferramentas ou gerava chamadas malformadas. Usá-lo seria possível mas deixaria o código muito mais complicado e o modelo muito mais rígido | Migração para a API do Gemini, que lida de forma confiável com function calling |
 | `503 UNAVAILABLE` (alta demanda) | Sobrecarga temporária no lado do Google | Retry com backoff exponencial (1s, 2s, 4s, 8s) e número limitado de tentativas no nível do SDK |
 | Respostas muito lentas | Modelo pesado somado a retries empilhados (retries do SDK em cima dos retries customizados) | Troca para um modelo `flash-lite`, definição de timeout na requisição e limite de tentativas do SDK |
 | Respostas fora do escopo (por exemplo, "Qual a capital da França?" retornava "Paris") | O modelo não tinha nenhuma instrução para recusar | System prompt com regras explícitas de escopo e comportamento fixo de recusa, além de `temperature=0` |
